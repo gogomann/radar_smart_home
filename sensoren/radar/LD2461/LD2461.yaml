@@ -1,0 +1,165 @@
+esphome:
+  name: ld2461-test
+  friendly_name: HiLink LD2461 mmWave
+
+external_components:
+  - source:
+      type: git
+      url: https://github.com/Chreece/LD2461-ESPHome
+      ref: main
+    components: [ ld2461 ]
+    refresh: 1min
+
+esp32:
+  board: wemos_d1_mini32
+
+# Enable logging
+logger:
+  baud_rate: 0
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: !secret encryption_key
+
+ota:
+  password: !secret ota_update
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: $friendly_name
+    password: !secret ap_pass
+
+captive_portal:   
+
+uart:
+  id: uart_bus
+  tx_pin: 
+    number: GPIO22
+  rx_pin: 
+    number: GPIO21
+  baud_rate: 9600
+  parity: NONE
+  stop_bits: 1
+
+ld2461:
+  uart_id: uart_bus
+  update_interval: 1s
+
+binary_sensor:
+- platform: ld2461
+  has_target:
+    name: Presence
+  presence_regions:
+    - name: "Custom Presence Region 0"
+      region_id: presence_region_0
+
+text_sensor:
+  - platform: ld2461
+    version:
+      name: "FW"
+    uid:
+      name: "UID"
+
+button:
+  - platform: restart
+    name: "ESP Restart"
+  - platform: ld2461
+    factory_reset:
+      name: "Factory reset"
+
+number:
+- platform: ld2461
+  presence_timeout:
+    name: "Presence timeout"
+  presence_regions:
+    - x0: 100
+      y0: 100
+      x1: 200
+      y1: 200
+      id: presence_region_0
+  entry_points:
+    - x: 0
+      y: 0
+  region_0:
+    x0:
+      name: R0X0
+    y0:
+      name: R0Y0
+    x1:
+      name: R0X1
+    y1:
+      name: R0Y1
+
+  region_1:
+    x0:
+      name: R1X0
+    y0:
+      name: R1Y0
+    x1:
+      name: R1X1
+    y1:
+      name: R1Y1
+
+  region_2:
+    x0:
+      name: R2X0
+    y0:
+      name: R2Y0
+    x1:
+      name: R2X1
+    y1:
+      name: R2Y1
+
+select:
+  - platform: ld2461
+    baud_rate:
+      name: "Baud rate"
+    regions_type:
+      name: "Regions type"
+    reporting_type:
+      name: "Reporting type"
+
+sensor:
+- platform: ld2461
+  target_count:
+    name: Target count
+
+  person_0:
+    position_x:
+      name: "P0X"  
+
+    position_y:
+      name: "P0Y"
+
+  person_1:
+    position_x:
+      name: "P1X"  
+
+    position_y:
+      name: "P1Y"
+
+  person_2:
+    position_x:
+      name: "P2X"  
+
+    position_y:
+      name: "P2Y"
+
+  person_3:
+    position_x:
+      name: "P3X"  
+
+    position_y:
+      name: "P3Y"
+
+  person_4:
+    position_x:
+      name: "P4X"  
+
+    position_y:
+      name: "P4Y"

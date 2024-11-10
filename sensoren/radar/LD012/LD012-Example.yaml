@@ -1,0 +1,18 @@
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO5  #Change the pin num to what you used
+      mode:
+        input: true
+    name: LD012 Ladar
+    device_class: occupancy
+    filters:
+      - delayed_on: 100ms
+      - delayed_off: 5s  #Delay Off Timer
+switch:      
+  - platform: gpio
+    pin:
+      number: GPIO13  #Change the pin num to what you used
+      mode:
+        output: true
+    name: LD012 Sensitivity Adjust

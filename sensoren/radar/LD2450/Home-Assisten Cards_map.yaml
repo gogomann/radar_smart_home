@@ -1,0 +1,150 @@
+type: custom:plotly-graph
+title: Target Positions
+refresh_interval: 1
+hours_to_show: current_day
+layout:
+  showlegend: true
+  margin:
+    l: 50
+    r: 20
+    t: 20
+    b: 40
+  autosize: false
+  height: 300
+  xaxis:
+    type: number
+    fixedrange: true
+    range:
+      - 4000
+      - -4000
+  yaxis:
+    fixedrange: true
+    range:
+      - 6000
+      - 0
+entities:
+  - entity: ''
+    name: Target1
+    marker:
+      size: 15
+    line:
+      shape: spline
+      width: 5
+    x:
+      - $ex hass.states["sensor.target1_x"].state
+    'y':
+      - $ex hass.states["sensor.target1_y"].state
+  - entity: ''
+    name: Target2
+    marker:
+      size: 15
+    line:
+      shape: spline
+      width: 5
+    x:
+      - $ex hass.states["sensor.target2_x"].state
+    'y':
+      - $ex hass.states["sensor.target2_y"].state
+  - entity: ''
+    name: Target3
+    marker:
+      size: 15
+    line:
+      shape: spline
+      width: 5
+    x:
+      - $ex hass.states["sensor.target3_x"].state
+    'y':
+      - $ex hass.states["sensor.target3_y"].state
+  - entity: ''
+    name: Zone1
+    mode: lines
+    line:
+      shape: line
+      width: 2
+    x:
+      - $ex hass.states["number.zone1_x1"].state
+      - $ex hass.states["number.zone1_x1"].state
+      - $ex hass.states["number.zone1_x2"].state
+      - $ex hass.states["number.zone1_x2"].state
+      - $ex hass.states["number.zone1_x1"].state
+    'y':
+      - $ex hass.states["number.zone1_y1"].state
+      - $ex hass.states["number.zone1_y2"].state
+      - $ex hass.states["number.zone1_y2"].state
+      - $ex hass.states["number.zone1_y1"].state
+      - $ex hass.states["number.zone1_y1"].state
+  - entity: ''
+    name: Zone2
+    mode: lines
+    line:
+      shape: line
+      width: 2
+    x:
+      - $ex hass.states["number.zone2_x1"].state
+      - $ex hass.states["number.zone2_x1"].state
+      - $ex hass.states["number.zone2_x2"].state
+      - $ex hass.states["number.zone2_x2"].state
+      - $ex hass.states["number.zone2_x1"].state
+    'y':
+      - $ex hass.states["number.zone2_y1"].state
+      - $ex hass.states["number.zone2_y2"].state
+      - $ex hass.states["number.zone2_y2"].state
+      - $ex hass.states["number.zone2_y1"].state
+      - $ex hass.states["number.zone2_y1"].state
+  - entity: ''
+    name: Zone3
+    mode: lines
+    line:
+      shape: line
+      width: 2
+    x:
+      - $ex hass.states["number.zone3_x1"].state
+      - $ex hass.states["number.zone3_x1"].state
+      - $ex hass.states["number.zone3_x2"].state
+      - $ex hass.states["number.zone3_x2"].state
+      - $ex hass.states["number.zone3_x1"].state
+    'y':
+      - $ex hass.states["number.zone3_y1"].state
+      - $ex hass.states["number.zone3_y2"].state
+      - $ex hass.states["number.zone3_y2"].state
+      - $ex hass.states["number.zone3_y1"].state
+      - $ex hass.states["number.zone3_y1"].state
+  - entity: ''
+    name: Coverage
+    mode: lines
+    fill: tonexty
+    fillcolor: rgba(168, 216, 234, 0.15)
+    line:
+      shape: line
+      width: 1
+      dash: dot
+    x:
+      - 0
+      - $ex 6000 * Math.sin((2 * Math.PI)/360 * 60)
+      - 4000
+      - 3000
+      - 2000
+      - 1000
+      - 0
+      - -1000
+      - -2000
+      - -3000
+      - -4000
+      - $ex -6000 * Math.sin((2 * Math.PI)/360 * 60)
+      - 0
+    'y':
+      - 0
+      - $ex 6000 * Math.cos((2 * Math.PI)/360 * 60)
+      - $ex Math.sqrt( 6000**2 - 4000**2 )
+      - $ex Math.sqrt( 6000**2 - 3000**2 )
+      - $ex Math.sqrt( 6000**2 - 2000**2 )
+      - $ex Math.sqrt( 6000**2 - 1000**2 )
+      - 6000
+      - $ex Math.sqrt( 6000**2 - 1000**2 )
+      - $ex Math.sqrt( 6000**2 - 2000**2 )
+      - $ex Math.sqrt( 6000**2 - 3000**2 )
+      - $ex Math.sqrt( 6000**2 - 4000**2 )
+      - $ex 6000 * Math.cos((2 * Math.PI)/360 * 60)
+      - 0
+raw_plotly_config: true
